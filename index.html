@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="백하 — White river, peaceful mind. 일러스트 포트폴리오">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.5 system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>백하 — White river, peaceful mind</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+<style>
+/* Layout: 빈 종이 위의 한 장. 좌측 이름 / 우측 메뉴, 메인은 그림 한 점, 아카이브는 연도별 세로 흐름 + 연도 점프 */
+:root{
+  --paper:#ffffff;
+  --sheet:#ffffff;
+  --ink:#16181d;
+  --ink-soft:#5c616b;
+  --line:#e6e7ea;
+  --accent:#2b3f6b;
+  --art:#ffffff; /* 그림 배경은 어두운 화면에서도 흰 종이로 유지 */
+  --f-display:"Gowun Batang","Nanum Myeongjo",Georgia,serif;
+  --f-body:"Noto Sans KR",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+/* 흰 배경 한 가지로 고정 */
+:root{color-scheme:light}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-weight:300;font-size:15px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper)}
+.bar{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:28px 20px;border-bottom:1px solid var(--line)}
+.brand{text-decoration:none;display:flex;flex-direction:column;gap:2px}
+.brand b{font-family:var(--f-display);font-weight:700;font-size:26px;letter-spacing:.01em;line-height:1.1}
+.brand span{font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;text-transform:none;color:var(--ink-soft)}
+nav{display:flex;gap:28px}
+nav a{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft);padding-block:4px;border-bottom:1px solid transparent}
+nav a:hover{color:var(--ink)}
+nav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--ink)}
+
+main{padding-block:40px 80px}
+.view[hidden]{display:none}
+
+/* home */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:40px;align-items:end}
+.hero figure{margin:0;background:var(--art);padding:clamp(12px,3vw,32px)}
+.hero img{display:block;max-width:100%;width:auto;height:auto;max-height:72vh;margin:0 auto;cursor:zoom-in}
+.hero-cap{display:flex;flex-direction:column;gap:14px;padding-bottom:8px}
+.hero-cap .t{font-family:var(--f-display);font-size:24px;line-height:1.3;text-wrap:balance}
+.meta{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink-soft);display:grid;gap:2px}
+.hero-cap a.more{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--ink);align-self:start}
+
+/* archive */
+.years{display:flex;gap:6px 18px;flex-wrap:wrap;margin-bottom:40px;font-family:var(--f-mono);font-size:13px}
+.years button{font:inherit;background:none;border:0;padding:2px 0;color:var(--ink-soft);cursor:pointer;font-variant-numeric:tabular-nums}
+.years button:hover,.years button.on{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+.year{display:grid;grid-template-columns:180px minmax(0,1fr);gap:24px;padding-block:28px;border-top:1px solid var(--line)}
+.year h2{margin:0;font-family:var(--f-display);font-weight:400;font-size:32px;line-height:1.15;position:sticky;top:calc(env(safe-area-inset-top,0px) + 110px);align-self:start}
+.year h2 small{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--ink-soft);margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:28px 22px}
+.work{margin:0;display:flex;flex-direction:column;gap:10px;cursor:zoom-in}
+.year h2.na{font-size:24px}
+.work .frame{background:var(--art);border:0;aspect-ratio:4/3;max-width:100%;position:relative}
+.work img{position:absolute;left:0;bottom:0;margin:0;max-width:calc(100% * var(--s,1));max-height:calc(92% * var(--s,1));width:auto;height:auto;transition:opacity .3s ease}
+.work:hover img{opacity:.82}
+.work.wide{grid-column:span 2}
+.work.wide .frame{aspect-ratio:8/3}
+.work figcaption{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+.work figcaption em{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--ink-soft);white-space:nowrap}
+
+/* contact */
+.contact{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:56px}
+.contact h2{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,4vw,44px);line-height:1.2;margin:0 0 24px;text-wrap:balance}
+.contact p{max-width:34em;margin:0 0 14px;font-size:14px;line-height:1.36}
+.label{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px}
+.cv{display:grid;gap:8px;margin:16px 0 0;padding:0;list-style:none}
+.cv li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;font-size:13px;line-height:1.36}
+.cv li span{font-family:var(--f-mono);font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums;padding-top:2px}
+.reach{display:grid;gap:22px;align-content:start;border-left:1px solid var(--line);padding-left:32px}
+.reach .v{font-size:13px;line-height:1.36;word-break:break-all}
+.reach{gap:18px!important}
+.copy{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink);padding:5px 10px;cursor:pointer;margin-left:10px;vertical-align:middle}
+.copy:hover{border-color:var(--ink)}
+.reach a{text-underline-offset:4px}
+.note{font-size:13px;color:var(--ink-soft)}
+
+footer{border-top:1px solid var(--line);padding-block:20px 32px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:var(--ink-soft);display:flex;justify-content:center;text-align:center;gap:12px;flex-wrap:wrap}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:20;background:color-mix(in srgb,var(--paper) 96%,transparent);display:grid;grid-template-rows:1fr auto;
+  padding:calc(env(safe-area-inset-top,0px) + 56px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 20px) max(16px,env(safe-area-inset-left,0px))}
+.lb img{max-width:100%;max-height:100%;margin:auto;object-fit:contain;min-height:0}
+.lb .cap{text-align:center;padding-top:16px;display:grid;gap:2px}
+.lb .cap b{font-family:var(--f-display);font-weight:400;font-size:18px}
+.lb button{position:absolute;background:none;border:0;color:var(--ink);font-family:var(--f-mono);font-size:13px;letter-spacing:.12em;cursor:pointer;padding:10px}
+.lb .x{top:calc(env(safe-area-inset-top,0px) + 12px);right:max(12px,env(safe-area-inset-right,0px))}
+.lb .p{left:max(4px,env(safe-area-inset-left,0px));top:50%;font-size:28px}
+.lb .n{right:max(4px,env(safe-area-inset-right,0px));top:50%;font-size:28px}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;gap:20px}
+  .year{grid-template-columns:1fr;gap:16px}
+  .year h2{position:static;font-size:34px}
+  .year h2 small{display:inline;margin-left:12px}
+  .contact{grid-template-columns:1fr;gap:36px}
+  .reach{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:28px}
+  nav{gap:14px}
+  nav a{font-size:11px;letter-spacing:.08em}
+  .bar{flex-wrap:nowrap;align-items:center;padding-block:14px 12px}
+  .brand b{font-size:22px}
+  .brand span{display:none}
+  #v-intro .kicker{display:none}
+  .years{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:18px;margin-inline:-16px;padding:2px 16px 8px;margin-bottom:28px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .years::-webkit-scrollbar{display:none}
+  .years button{flex:none}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 14px}
+}
+@media (prefers-reduced-motion:reduce){.work img{transition:none}}
+
+/* intro (첫 화면) */
+body.on-intro header,body.on-intro footer{display:none}
+body.on-intro main{padding:0;max-width:none}
+#v-intro{min-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));display:grid;place-items:center;text-align:center;cursor:pointer;background:var(--paper)}
+#v-intro .in{position:relative;align-self:stretch;width:100%;height:100%;display:grid;grid-template-rows:1fr auto;justify-items:center;align-items:center;padding-block:max(28px,env(safe-area-inset-top,0px)) max(28px,env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#v-intro .foot{grid-row:2;display:grid;gap:10px;justify-items:center}
+#v-intro .tagline{margin:-4px 0 6px;font-size:13px;letter-spacing:.06em;color:#fff;opacity:.92}
+#v-intro .kicker{margin-top:0;max-width:46em;line-height:2;word-break:keep-all;font-family:var(--f-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
+#v-intro h1{margin:0;font-family:var(--f-display);font-weight:400;font-size:clamp(22px,4.5vw,52px);line-height:1;letter-spacing:.01em;text-wrap:balance}
+#v-intro{position:fixed;inset:0;z-index:40;min-height:0!important;isolation:isolate;background:#33bbec url("works/duck-bg.webp") center/cover no-repeat!important;color:#fff}
+#v-intro::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(10,30,60,.10)}
+#v-intro .in{text-shadow:0 1px 6px rgba(0,0,0,.5),0 0 2px rgba(0,0,0,.35)}
+#v-intro .kicker,#v-intro h1,#v-intro .enter{color:#fff!important}
+#v-intro .enter{border-bottom-color:#fff!important}
+#v-intro .kicker{opacity:.9}
+#v-intro .enter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);margin:0;font-size:14px;font-family:var(--f-mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--ink);padding:4px 2px;cursor:pointer;animation:breathe 2.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.35}}
+#v-intro.leaving{transition:opacity .6s ease;opacity:0}
+
+/* 새 커서 */
+@media (pointer:fine){html.has-bird,html.has-bird *{cursor:none!important}}
+#bird{position:fixed;left:0;top:0;width:48px;height:33px;z-index:50;pointer-events:none;color:var(--ink);opacity:0;transition:opacity .25s;will-change:transform}
+html.has-bird #bird{opacity:1}
+#bird svg,#bird img{width:100%;height:100%;display:block;object-fit:contain}
+#bird img{position:absolute;inset:0}
+#bird:has(img){filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.28))}
+#bird .b-body{clip-path:inset(0 0 0 44%)}
+#bird .b-wing{clip-path:inset(0 38% 0 0);transform-origin:50% 46%}
+#dot{position:fixed;left:0;top:0;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:var(--accent);z-index:51;pointer-events:none;opacity:0}
+html.has-bird #dot{opacity:.8}
+@media (prefers-reduced-motion:reduce){#v-intro .enter{animation:none}}
+</style>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#intro"><b id="artistName">백하</b><span>White river, peaceful mind</span></a>
+    <nav aria-label="메뉴">
+      <a href="#intro" data-v="intro">Main</a>
+      <a href="#archive" data-v="archive">Drawing</a>
+      <a href="#contact" data-v="contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="view" id="v-intro" hidden aria-label="첫 화면">
+    <div class="in">
+      <button class="enter" id="enterBtn" type="button">Enter</button>
+      <div class="foot">
+        <h1 id="introName">백하</h1>
+        <p class="tagline">White river, peaceful mind</p>
+        <span class="kicker">한국의 강 · 강과 풍경 · 한국풍경 · 춘천 풍경 · 점선면 · 동물 친구들 · 회화 · 영남의 탑 · 한국 도자기 · 한국의 식물 · 한국의 십이지신 · 두루미 · Chichitata · Yong의 그림일기 · 세계의 강</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-home" hidden>
+    <div class="hero">
+      <figure><img id="heroImg" alt=""></figure>
+      <div class="hero-cap">
+        <div class="t" id="heroTitle"></div>
+        <div class="meta" id="heroMeta"></div>
+        <a class="more" href="#archive">전체 작업 보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-archive" hidden>
+    <div class="years" id="yearNav" aria-label="시리즈 이동"></div>
+    <div id="yearList"></div>
+  </section>
+
+  <section class="view" id="v-contact" hidden>
+    <div class="contact">
+      <div>
+        <p class="label">About</p>
+        <h2>백하</h2>
+        <p>안동과 춘천에서 그림을 그리고, 디자인을 하고, 함께 농사를 짓습니다.</p>
+        <ul class="cv">
+          <li><span>2019–</span>백하스튜디오 운영 – 그래픽디자인, 일러스트</li>
+          <li><span>2020–</span>춘천문화재단 매거진 pot 에디터</li>
+          <li><span>2024–</span>어쩌다농사 팀 공동농사</li>
+          <li><span>2019–20</span>근화동396 청년창업공간 1기, 일러스트레이터</li>
+        </ul>
+        <p class="label" style="margin-top:36px">Exhibitions</p>
+        <ul class="cv">
+          <li><span>2026</span>개나리아트페어, 일러스트 작가 참여</li>
+          <li><span>2024–25</span>마주치는 바람들, 아르케이프 갤러리, 작가 참여</li>
+          <li><span>2024</span>역력, 문화공간 역, 참여</li>
+          <li><span>2023</span>개나리아트페어 Mixing bowl, 그림숲 운영 및 일러스트 작가 참여</li>
+          <li><span>2022–23</span>에코아트페어 Zero Something 일러스트페어 전시 참가</li>
+          <li><span>2022</span>개나리아트페어 Home Sweet Home, 일러스트 작가 참여</li>
+          <li><span>2021</span>강원미술시장축제2021 – 그림 보러 가지 않을래?, 작가 참여</li>
+          <li><span>2019</span>터무니맹글 우리동네 주민 민화전, 작가 참여</li>
+        </ul>
+      </div>
+      <div class="reach">
+        <div>
+          <p class="label">Email</p>
+          <span class="v" id="email">uiop1114@naver.com</span><button class="copy" id="copyBtn" type="button">복사</button>
+        </div>
+        <div>
+          <p class="label">Instagram</p>
+          <a class="v" href="https://www.instagram.com/yong.graphics" target="_blank" rel="noopener">@yong.graphics</a><br>
+          <a class="v" href="https://www.instagram.com/baekha.y" target="_blank" rel="noopener">@baekha.y</a>
+        </div>
+        <div>
+          <p class="label">Based in</p>
+          <span class="v">Andong, Chuncheon in Korea</span>
+        </div>
+        <p class="note">작업 의뢰와 협업 문의는 이메일로 받습니다. 감사합니다.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap"><span>All works ©BAEKHA</span></footer>
+
+<div id="bird" aria-hidden="true"><svg viewBox="0 0 64 40"><path fill="currentColor" d="M2 19c10-9 20-10 27-3 1 1 2 1 3 0 7-7 17-6 27 3-9-3-17-2-23 4l-2 7c0 1-1 1-1 0l-1-2-1 2c0 1-1 1-1 0l-2-7C19 17 11 16 2 19z"/></svg></div>
+<div id="dot" aria-hidden="true"></div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="작품 크게 보기">
+  <button class="x" id="lbX" type="button">닫기 ×</button>
+  <button class="p" id="lbP" type="button" aria-label="이전">‹</button>
+  <img id="lbImg" alt="">
+  <button class="n" id="lbN" type="button" aria-label="다음">›</button>
+  <div class="cap"><b id="lbT"></b><span class="meta" id="lbM"></span></div>
+</div>
+
+<script>
+/* ── 작품 목록: title = 작품명, year = 파일 정보의 연도(없으면 null), src = works/ 폴더의 이미지 ── */
+let FEATURED = 0; // 메인 작품은 아래에서 제목으로 찾습니다
+const W = (title, file, year, series="한국의 강") => ({title, year, series, src:`works/${file}.webp`});
+const G = (title, file) => W(title, file, null, "세계의 강");
+const L = (title, file) => W(title, file, null, "강과 풍경");
+const K = (title, file) => W(title, file, null, "한국풍경");
+const T = (title, file) => W(title, file, null, "영남의 탑");
+const P = (title, file) => W(title, file, null, "한국 도자기");
+const F = (title, file) => W(title, file, null, "한국의 식물");
+const Z = (title, file) => W(title, file, null, "한국의 십이지신");
+const D = (title, file) => W(title, file, null, "두루미");
+const AF = (title, file) => W(title, file, null, "동물 친구들");
+const DL = (title, file) => W(title, file, null, "점선면");
+const CC = (title, file) => W(title, file, null, "춘천 풍경");
+const C = (title, file) => W(title, file, null, "Chichitata");
+const Y = (title, file) => W(title, file, null, "Yong의 그림일기");
+const WORKS = [
+  W("참갈겨니","chamgalgyeoni",2019),
+  W("열목어","yeolmogeo",2019),
+  W("참마자","chammaja",2019),
+  W("꺽지","kkeokji",2019),
+  W("부들","budeul",2019),
+  W("각시붕어","gaksibungeo",2019),
+  W("가재","gajae",2019),
+  W("가시고기","gasigogi",2019),
+  W("꺽지","kkeokji-orange",2019),
+  W("동사리","dongsari",2019),
+  W("산천어","sancheoneo",2019),
+  W("말즘","u-weed",2019),
+  W("퉁가리","u-orangecat",2019),
+  W("붕어마름","bungeomarum",2019),
+  W("잉어","ingeo-top",2019),
+  W("쏘가리","ssogari",2019),
+  W("연어","baeseu",2019),
+  W("청개구리","cheonggaeguri",2019),
+  W("가물치","gamulchi",2019),
+  W("메기","megi",2019),
+  W("동자개","dongjagae",2019),
+  W("뚜구리","dukjunggae",2019),
+  W("붕어","bungeo",2019),
+  W("잉어","ingeo",2019),
+  W("무지개송어","rainbow",2019),
+  W("자라","jara",2019),
+  W("갈겨니","unknown-redfin",2019),
+  W("납자루","unknown-grey",2019),
+  W("줄종개","unknown-loach",2019),
+  W("금강모치","unknown-redstripe",2019),
+  W("버들치","u-olive",2019),
+  W("돌상어","u-spotloach",2019),
+  W("피라미 떼","u-school",2019),
+  W("쉬리","u-orangebelly",2019),
+  W("수수미꾸리","u-banded",2019),
+  W("어름치","u-bluespot",2019),
+  W("끄리","u-eggs",2019),
+  W("누치","u-pale",2019),
+  W("개구리밥","u-floating",2019),
+  W("줄납자루와 조개","u-fish-mussel",2019),
+  W("납지리와 조개","u-bitterling-mussel",2019),
+  W("블루길","u-sunfish",2019),
+  W("피라미","u-purple",2019),
+  W("황복","u-puffer",2019),
+  W("황쏘가리","u-golden",2019),
+  W("황어","u-blackorange",2019),
+  L("연어를 기다리는 곰","l-bear"),
+  L("폭포를 오르는 연어","salmon-falls"),
+  L("물살을 거슬러","fish-falls"),
+  L("들판의 기러기","l-geese"),
+  L("노을 진 강","l-sunset"),
+  L("달 뜨는 밤","l-night"),
+  L("돌 틈의 물고기","l-stones"),
+  L("주황빛 물가","l-ducks"),
+  L("무당개구리","l-toad"),
+  L("소용돌이","l-whirl"),
+  L("붉은 물고기 떼","l-swarm"),
+  L("물고기 떼","l-school"),
+  L("강가의 집","l-cliff"),
+  K("산사 가는 길","k-gate"),
+  K("돌담 앞 나무","k-wall"),
+  K("억새 언덕","k-hill"),
+  K("바닷가 솔숲","k-pines"),
+  K("한낮의 해","k-sun"),
+  K("물 위의 석탑","k-pagoda"),
+  K("용설란","k-agave"),
+  K("능수버들","k-willow"),
+  K("정자가 있는 호수","k-lake"),
+  K("다리 아래 강","k-bridge"),
+  K("옥상의 꽃나무","k-flowertree"),
+  K("노란 꽃 차양","k-canopy"),
+  K("수수밭","k-sorghum"),
+  K("큰 나무 아래","k-trunks"),
+  K("설산","k-snowmt"),
+  K("양파","k-onions"),
+  K("파란 트럭","k-truck"),
+  K("화병","k-vase"),
+  K("가을 거리","k-street"),
+  K("가을 산과 억새","k-reeds"),
+  K("바닷가 빨간 지붕","k-redroof"),
+  K("나무 옆 집","k-house"),
+  K("갈대밭 사이 길","k-path"),
+  K("굽이도는 강","k-valley"),
+  K("골목의 건물들","k-city"),
+  K("볏짚 사이 하늘","k-straw"),
+  K("매화와 벌","k-plum"),
+  K("석등","k-lantern"),
+  K("구름 아래 호수","k-clouds"),
+  K("노을 진 산","k-dusk"),
+  T("사자가 있는 삼층석탑","t-lion"),
+  T("모전석탑","t-mojeon"),
+  T("오층전탑","t-brick"),
+  T("삼층석탑","t-stone3"),
+  T("전탑 드로잉","t-line"),
+  T("검은 모전석탑","t-dark"),
+  P("백자 병","c-bottle"),
+  P("굽다리 항아리","c-gaya"),
+  P("분청사기 물고기무늬 병","c-fishbottle"),
+  P("분청사기 물고기무늬 편병","c-fishflask"),
+  P("백자 각병","c-square"),
+  P("흑백 꽃무늬 매병","c-maebyeong"),
+  P("백자 제기","c-ritual"),
+  P("청자 상감운학문 매병","c-crane"),
+  P("포도무늬 백자 항아리","c-grape"),
+  P("청자 참외모양 병","c-melon"),
+  P("백자 달항아리","c-moonjar"),
+  F("청포도","p-grape"),
+  F("밤","p-chestnut"),
+  F("가지","p-eggplant"),
+  F("대추","p-jujube"),
+  F("두릅","p-dureup"),
+  F("방울토마토","p-tomato"),
+  F("적상추","p-lettuce"),
+  F("냉이","p-naengi"),
+  F("쑥","p-ssuk"),
+  F("앵두","p-aengdu"),
+  F("머위","p-meowi"),
+  Z("쥐","z-rat"),
+  Z("호랑이","z-tiger"),
+  Z("토끼","z-rabbit"),
+  Z("용","z-dragon"),
+  Z("뱀","z-snake"),
+  Z("말","z-horse"),
+  Z("양","z-sheep"),
+  Z("원숭이","z-monkey"),
+  Z("닭","z-rooster"),
+  Z("개","z-dog"),
+  Z("돼지","z-pig"),
+  D("눈밭의 두루미","d-snow"),
+  D("붉은 하늘의 두루미","d-red"),
+  D("춤추는 두루미","d-dance"),
+  D("날아오르는 두루미","d-fly"),
+  D("두루미 떼","d-flock"),
+  CC("갈대숲 강가","cc-01"),
+  CC("벚꽃 풍차","cc-02"),
+  CC("노을 진 호수","cc-03"),
+  CC("눈 덮인 산자락","cc-04"),
+  CC("소양강 처녀상","cc-05"),
+  CC("카약","cc-06"),
+  CC("달빛 아래 카누","cc-07"),
+  CC("강가의 흰 집","cc-08"),
+  CC("빙벽 등반","cc-09"),
+  CC("붉은 호수","cc-10"),
+  DL("배 여섯 개","dl-01"),
+  DL("붉은 원과 산","dl-02"),
+  DL("파란 막대","dl-03"),
+  DL("세 줄기 물결","dl-04"),
+  DL("새와 물결","dl-05"),
+  DL("소용돌이","dl-06"),
+  DL("해와 달과 산","dl-07"),
+  DL("세 개의 원","dl-08"),
+  DL("파란 컵","dl-09"),
+  DL("원과 막대","dl-10"),
+  DL("논과 해","dl-11"),
+  DL("열매 덩굴","dl-12"),
+  DL("산과 숲","dl-13"),
+  DL("초록 면","dl-14"),
+  DL("하늘색 물고기","dl-15"),
+  DL("줄무늬 물고기","dl-16"),
+  DL("노란 물고기","dl-17"),
+  DL("검은 줄 물고기","dl-18"),
+  DL("붕어마름","dl-19"),
+  DL("점박이 물고기 두 마리","dl-20"),
+  DL("가느다란 물고기","dl-21"),
+  DL("점박이 미꾸리","dl-22"),
+  DL("나사말","dl-23"),
+  DL("흰 물고기","dl-24"),
+  DL("초록 물고기 두 마리","dl-25"),
+  DL("복어","dl-26"),
+  AF("고니 가족","af-01"),
+  AF("옹기종기 새끼 새들","af-02"),
+  AF("눈 오는 날 거위","af-03"),
+  AF("숨은 고라니","af-04"),
+  AF("연어 잡는 곰","af-05"),
+  AF("청둥오리 비행","af-06"),
+  AF("너구리 발자국","af-07"),
+  AF("달밤의 꽃","af-08"),
+  AF("열매 나무","af-09"),
+  AF("엄마 오리와 새끼들","af-10"),
+  AF("흰 오리","af-11"),
+  AF("잠자는 오리","af-12"),
+  AF("꽃밭의 고라니","af-13"),
+  W("나의 살던 고향은","hometown",null,"회화"),
+  C("매","c-falcon"),
+  C("멧밭쥐","c-harvestmouse"),
+  C("과일박쥐","c-fruitbat"),
+  C("붉은박쥐","c-redbat"),
+  C("앉아 있는 반달가슴곰","c-bear-sit"),
+  C("서 있는 반달가슴곰","c-bear-stand"),
+  C("검은머리흰따오기","c-sacredibis"),
+  C("홍따오기","c-scarletibis"),
+  C("남생이","c-turtle"),
+  C("표범장지뱀","c-lizard"),
+  C("가창오리","c-teal"),
+  C("따오기","c-ibis"),
+  C("맹꽁이","c-toad"),
+  C("붉은여우","c-fox"),
+  C("뿔제비갈매기","c-tern"),
+  C("쌍꼬리부전나비","c-butterfly"),
+  C("수염풍뎅이","c-beetle"),
+  C("팔색조","c-pitta"),
+  C("하늘다람쥐","c-squirrel"),
+  C("날아가는 하늘다람쥐","c-squirrel-fly"),
+  C("꽃사슴","c-deer"),
+  C("가시복","c-porcupine"),
+  C("돌돔","c-rockbream"),
+  C("파랑돔","c-damsel"),
+  C("개복치","c-sunfish"),
+  C("날치","c-flyingfish"),
+  C("산양","c-goral"),
+  C("큰고니","c-swan"),
+  C("까투리","c-kkaturi"),
+  C("장끼","c-jangkki"),
+  C("날아오르는 장끼","c-jangkki-fly"),
+  C("도요새","c-sandpiper"),
+  C("날개 편 파랑새","c-roller-fly"),
+  C("파랑새","c-roller"),
+  C("물까치","c-magpie"),
+  C("물총새","c-kingfisher"),
+  C("저어새","c-spoonbill"),
+  C("두루미","c-crane"),
+  C("독수리","c-vulture"),
+  C("참매","c-goshawk"),
+  C("민물가마우지","c-cormorant"),
+  C("올빼미","c-owl"),
+  C("붉은배새매","c-sparrowhawk"),
+  C("노란목도리담비","c-marten"),
+  C("뛰어오르는 담비","c-marten-jump"),
+  C("개개비","c-warbler"),
+  C("곤줄박이","c-tit"),
+  C("흰발농게","c-fiddler"),
+  C("점박이물범","c-seal"),
+  C("잠자는 점박이물범","c-seal-sleep"),
+  C("유혈목이","c-keelback"),
+  C("새끼 고라니","c-fawn"),
+  C("흑비둘기","c-blackpigeon"),
+  C("검은머리물떼새","c-oyster"),
+  C("유리딱새","c-bluetail"),
+  C("멋쟁이새","c-bullfinch"),
+  C("벌매","c-honeybuzzard"),
+  C("먹이 찾는 검은머리물떼새","c-oyster-pair"),
+  C("다람쥐","c-chipmunk"),
+  C("물 위의 점박이물범","c-seal-swim"),
+  C("풀숲의 반달가슴곰","c-bear-grass"),
+  C("큰유리새","c-flycatcher"),
+  C("아무르표범","c-leopard"),
+  C("제비 새끼들","c-swallow-chicks"),
+  C("제비","c-swallow"),
+  C("코끼리땃쥐","c-shrew"),
+  Y("명상","y-01"),
+  Y("이불 속 밤","y-02"),
+  Y("돌부처","y-03"),
+  Y("입김","y-04"),
+  Y("분홍 해변","y-05"),
+  Y("안아주기","y-06"),
+  Y("발바닥","y-07"),
+  Y("눈 오는 날 까마귀","y-08"),
+  Y("세면대","y-09"),
+  Y("세 사람","y-10"),
+  Y("현관","y-11"),
+  Y("눈밭 놀이","y-12"),
+  Y("얼음낚시","y-13"),
+  Y("흔들의자","y-14"),
+  Y("웅크림","y-15"),
+  Y("호박","y-16"),
+  Y("호두 까기","y-17"),
+  Y("말 타기","y-18"),
+  Y("수영","y-19"),
+  Y("호수","y-20"),
+  Y("바위 위 독서","y-21"),
+  Y("이발소","y-22"),
+  Y("백로 숲","y-23"),
+  Y("날아가는 새","y-24"),
+  Y("족욕","y-25"),
+  Y("횡단보도 (스케치)","y-26"),
+  Y("횡단보도","y-27"),
+  Y("가을 나무","y-28"),
+  Y("갈대숲 오리 가족","y-29"),
+  Y("한 발로 서기","y-30"),
+  Y("기러기","y-31"),
+  Y("날아가는 새 (흰 배경)","y-32"),
+  Y("와인 한 잔","y-33"),
+  Y("고구마","y-34"),
+  Y("배추","y-35"),
+  Y("두루미 춤","y-36"),
+  Y("눈 덮인 한옥","y-37"),
+  Y("불 켜진 조명","y-38"),
+  Y("조명","y-39"),
+  Y("지붕 위 갈매기","y-40"),
+  Y("목화","y-41"),
+  Y("숲길과 하늘다람쥐","y-42"),
+  Y("사막의 순례자","y-43"),
+  Y("방파제 갈매기","y-44"),
+  Y("밤의 횡단보도","y-45"),
+  Y("제비 둥지","y-46"),
+  Y("줄타기","y-47"),
+  Y("밤하늘 아래 오리들","y-48"),
+  Y("나뭇가지 문 까치","y-49"),
+  Y("책상","y-50"),
+  Y("볏짚 수레","y-51"),
+  Y("볏짚 묶기","y-52"),
+  Y("갈대와 강가","y-53"),
+  Y("전시장에서","y-54"),
+  Y("눈밭의 소","y-55"),
+  Y("공원 벤치","y-56"),
+  Y("벚꽃길 자전거","y-57"),
+  Y("햇살 아래 합장","y-58"),
+  Y("방파제 낚시","y-59"),
+  Y("풀숲","y-60"),
+  Y("하늘 위 고양이들","y-61"),
+  Y("줄무늬 의자","y-62"),
+  Y("전깃줄 위 파랑새","y-63"),
+  Y("보리밭 밀짚모자","y-64"),
+  Y("방망이와 아이","y-65"),
+  Y("열린 문","y-66"),
+  Y("씨 뿌리기","y-67"),
+  Y("박꽃","y-68"),
+  Y("계곡 물놀이","y-69"),
+  Y("서 있기","y-70"),
+  Y("모판 나르기","y-71"),
+  Y("구름 의자","y-72"),
+  Y("볍씨","y-73"),
+  Y("오이와 조롱박","y-74"),
+  Y("오징어 튀김","y-75"),
+  Y("약수터","y-76"),
+  Y("노트북","y-77"),
+  Y("밭갈이","y-78"),
+  Y("뭉게구름 아래 오토바이","y-79"),
+  Y("일기 쓰는 밤","y-80"),
+  Y("소파 낮잠","y-81"),
+  Y("전깃줄 아래 지붕들","y-82"),
+  Y("문어","y-83"),
+  Y("수박","y-84"),
+  Y("물길 따라","y-85"),
+  Y("경운기 운전","y-86"),
+  Y("화살","y-87"),
+  Y("새싹 밭","y-88"),
+  Y("모종 심기","y-89"),
+  Y("바닷바람","y-90"),
+  Y("나무 그늘","y-91"),
+  Y("대파","y-92"),
+  Y("탑","y-93"),
+  Y("손가락 물고기","y-94"),
+  Y("시냇가 바구니","y-95"),
+  Y("테트라포드 낚시","y-96"),
+  Y("눈 위 발자국","y-97"),
+  Y("손목 침","y-98"),
+  Y("바위 언덕","y-99"),
+  Y("차 한 잔","y-100"),
+  Y("고래상어와 헤엄","y-101"),
+  Y("나란히 잠들기","y-102"),
+  Y("풀 뜯는 말","y-103"),
+  Y("물 위에 뜨기","y-104"),
+  Y("빛 속의 사람","y-105"),
+  Y("지붕 위 고양이들","y-106"),
+  Y("2025년 4월","y-107"),
+  Y("연잎과 우렁이","y-108"),
+  Y("모닥불","y-109"),
+  Y("텃밭 지도","y-110"),
+  Y("해와 산","y-111"),
+  Y("큰 나무 아래","y-112"),
+  Y("눈 덮인 산","y-113"),
+  Y("비 오는 숲","y-114"),
+  Y("단풍나무 매달리기","y-115"),
+  Y("바위 계곡","y-116"),
+  Y("스탠드와 책상","y-117"),
+  Y("수영장","y-118"),
+  Y("강 위의 가마우지","y-119"),
+  Y("달리기","y-120"),
+  Y("불 켜진 집","y-121"),
+  Y("파라솔 아래","y-122"),
+  Y("달밤의 수달","y-123"),
+  Y("태양계","y-124"),
+  Y("해바라기 그리기","y-125"),
+  Y("봄 밭일","y-126"),
+  Y("쌍둥이","y-127"),
+  Y("나무 꼭대기","y-128"),
+  Y("할미꽃","y-129"),
+  Y("불꽃놀이","y-130"),
+  Y("분수","y-131"),
+  Y("징검다리","y-132"),
+  Y("사막의 캠핑카","y-133"),
+  Y("사막에 선 사람","y-134"),
+  Y("밤의 말 탄 사람","y-135"),
+  Y("협곡","y-136"),
+  Y("강변 산책","y-137"),
+  Y("베개 던지기","y-138"),
+  Y("잠든 아이들","y-139"),
+  Y("개나리 기차","y-140"),
+  Y("바위 절벽","y-141"),
+  Y("다리 사이로 보기","y-142"),
+  Y("갤러리 창","y-143"),
+  Y("꽃밭의 새","y-144"),
+  Y("수영 응원","y-145"),
+  Y("잠든 밤","y-146"),
+  Y("굽이진 길","y-147"),
+  Y("석류나무 아래","y-148"),
+  Y("보행기","y-149"),
+  Y("바닥분수","y-150"),
+  Y("패러글라이딩","y-151"),
+  Y("큰 부처","y-152"),
+  Y("닭과 병아리","y-153"),
+  Y("낮잠 시간","y-154"),
+  Y("짚 나르기","y-155"),
+  Y("다리 옆 버드나무","y-156"),
+  Y("딱따구리","y-157"),
+  G("베타","w-betta2"),
+  G("아로와나","w-arowana"),
+  G("엔젤피시","w-angelfish"),
+  G("구피","w-guppy"),
+  G("하프블랙 구피","w-guppy-black"),
+  G("클라운 로치","w-clownloach"),
+  G("화이트 코리도라스","w-corydoras"),
+  G("키싱 구라미","w-kissing"),
+  G("제브라 다니오","w-zebra"),
+  G("수마트라","w-tigerbarb"),
+  G("몽크호샤","w-redeye"),
+  G("플래티","w-platy"),
+  G("플레코","w-pleco"),
+  {...G("오토싱","w-pike"),scale:1},
+  G("고스트","w-anglerfish"),
+  G("네온테트라","w-neon"),
+  G("그라스 구피","w-grassguppy"),
+  G("마리모","w-marimo"),
+  G("블랙 네온 테트라","w-blackneon"),
+  G("블랙 라인 테트라","w-blackline"),
+  G("구피","w-guppy3"),
+  G("크리스마스 모스","w-xmasmoss"),
+  G("하이드로코타일","w-plant1"),
+  G("하이그로필라","w-plant2")
+];
+/* 수초 그림은 같은 시리즈의 물고기 그림 사이에 고르게 끼워 넣습니다 */
+const PLANTS=new Set(["budeul","bungeomarum","u-weed","u-floating","w-xmasmoss","w-plant1","w-plant2","w-marimo","dl-19","dl-23"]);
+(()=>{
+  const isPlant=w=>PLANTS.has(w.src.slice(6,-5));
+  const order=[...new Set(WORKS.map(w=>w.series))], out=[];
+  for(const s of order){
+    const all=WORKS.filter(w=>w.series===s), fish=all.filter(w=>!isPlant(w)), plants=all.filter(isPlant);
+    if(!plants.length||s==="강과 풍경"){ out.push(...all); continue; }
+    const step=fish.length/(plants.length+1); let p=0;
+    fish.forEach((f,i)=>{ out.push(f); if(p<plants.length && i+1>=Math.round(step*(p+1))) out.push(plants[p++]); });
+    while(p<plants.length) out.push(plants[p++]);
+  }
+  WORKS.splice(0,WORKS.length,...out);
+})();
+const metaHTML=w=>`<span>${w.series}${w.year?` · ${w.year}`:""}</span>`;
+
+/* main */
+FEATURED=Math.max(0,WORKS.findIndex(w=>w.title==="나의 살던 고향은"));
+const f=WORKS[FEATURED];
+heroImg.src=f.src;heroImg.alt=f.title;heroTitle.textContent=f.title;heroMeta.innerHTML=metaHTML(f);
+heroImg.onclick=()=>openLB(FEATURED);
+
+/* archive by year */
+const years=[...new Set(WORKS.map(w=>w.series))];
+const yid=y=>"s"+years.indexOf(y);
+yearNav.innerHTML=`<button type="button" class="on" data-y="all">All</button>`+years.map(y=>`<button type="button" data-y="${yid(y)}">${y}</button>`).join("");
+yearList.innerHTML=years.map(y=>{
+  const items=WORKS.map((w,i)=>[w,i]).filter(([w])=>w.series===y);
+  return `<section class="year" id="y${yid(y)}"><h2>${y}<small>${[...new Set(items.map(([w])=>w.year).filter(Boolean)),"연작"].join(" ")} · ${items.length}점</small></h2><div class="grid">${
+    items.map(([w,i])=>`<figure class="work" tabindex="0" data-i="${i}" style="--s:${w.scale||1}"><div class="frame"><img loading="lazy" src="${w.src}" alt="${w.title}"></div><figcaption><span>${w.title}</span></figcaption></figure>`).join("")
+  }</div></section>`}).join("");
+/* 가로로 긴 그림(가물치, 메기 등)은 두 칸을 써서 너무 작아지지 않게 */
+yearList.querySelectorAll(".work img").forEach(img=>{
+  const fit=()=>{ if(img.naturalWidth/img.naturalHeight>2.6 && WORKS[+img.closest(".work").dataset.i].scale==null) img.closest(".work").classList.add("wide"); };
+  img.complete&&img.naturalWidth?fit():img.addEventListener("load",fit,{once:true});
+});
+yearNav.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  yearNav.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".year").forEach(s=>s.hidden=!(b.dataset.y==="all"||s.id==="y"+b.dataset.y));
+});
+yearList.addEventListener("click",e=>{const w=e.target.closest(".work");if(w)openLB(+w.dataset.i)});
+yearList.addEventListener("keydown",e=>{const w=e.target.closest(".work");if(w&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openLB(+w.dataset.i)}});
+
+/* lightbox */
+let cur=0;
+function show(i){cur=(i+WORKS.length)%WORKS.length;const w=WORKS[cur];lbImg.src=w.src;lbImg.alt=w.title;lbT.textContent=w.title;lbM.innerHTML=metaHTML(w)}
+function openLB(i){show(i);lb.hidden=false;document.body.style.overflow="hidden";lbX.focus()}
+function closeLB(){lb.hidden=true;document.body.style.overflow=""}
+lbX.onclick=closeLB;lbP.onclick=()=>show(cur-1);lbN.onclick=()=>show(cur+1);
+lb.addEventListener("click",e=>{if(e.target===lb)closeLB()});
+document.addEventListener("keydown",e=>{if(lb.hidden)return;if(e.key==="Escape")closeLB();if(e.key==="ArrowLeft")show(cur-1);if(e.key==="ArrowRight")show(cur+1)});
+
+/* routing */
+const VIEWS=["intro","home","archive","contact"];
+function route(){
+  const h=location.hash.slice(1);
+  const v=h==="home"?"archive":(VIEWS.includes(h)?h:"intro");
+  VIEWS.forEach(k=>document.getElementById("v-"+k).hidden=k!==v);
+  document.body.classList.toggle("on-intro",v==="intro");
+  document.getElementById("v-intro").classList.remove("leaving");
+  document.querySelectorAll("nav a").forEach(a=>a.dataset.v===v?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
+  window.scrollTo(0,0);
+}
+addEventListener("hashchange",route);route();
+
+/* copy email */
+copyBtn.addEventListener("click",()=>{
+  const t=email.textContent;
+  const done=()=>{copyBtn.textContent="복사됨";setTimeout(()=>copyBtn.textContent="복사",1600)};
+  try{navigator.clipboard.writeText(t).then(done,sel)}catch(_){sel()}
+  function sel(){const r=document.createRange();r.selectNodeContents(email);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+});
+
+/* 첫 화면: 아무 곳이나 누르면 메인으로 */
+const intro=document.getElementById("v-intro");
+function enter(){ if(intro.classList.contains("leaving"))return; intro.classList.add("leaving");
+  const go=()=>{location.hash="archive"};
+  matchMedia("(prefers-reduced-motion: reduce)").matches?go():setTimeout(go,550); }
+intro.addEventListener("click",enter);
+intro.addEventListener("keydown",e=>{if(e.key==="Enter")enter()});
+document.querySelector('.brand').addEventListener('click',e=>{e.preventDefault();location.hash="intro"});
+
+/* ── 새 커서: 새 PNG가 준비되면 BIRD_SRC에 경로를 넣으세요 (예: "bird.png") ── */
+const BIRD_SRC="works/bird.png";
+(function(){
+  const bird=document.getElementById("bird"),dot=document.getElementById("dot"),root=document.documentElement;
+  let wing=null;
+  if(BIRD_SRC){bird.innerHTML=`<img class="b-wing" src="${BIRD_SRC}" alt=""><img class="b-body" src="${BIRD_SRC}" alt="">`;wing=bird.querySelector(".b-wing");}
+  if(!matchMedia("(pointer:fine)").matches) return;           // 터치 기기는 기본 동작 유지
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let tx=innerWidth/2,ty=innerHeight/2,x=tx,y=ty,ang=0,face=1,phase=0,big=1,bigT=1,last=performance.now(),t=0;
+  addEventListener("pointermove",e=>{
+    if(e.pointerType!=="mouse")return; tx=e.clientX;ty=e.clientY; root.classList.add("has-bird");
+    dot.style.transform=`translate(${tx}px,${ty}px)`;
+    bigT=e.target.closest("a,button,.work,#heroImg,#v-intro")?1.25:1;
+  });
+  document.addEventListener("pointerleave",()=>root.classList.remove("has-bird"));
+  addEventListener("blur",()=>root.classList.remove("has-bird"));
+  function frame(now){
+    const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;
+    const k=still?1:1-Math.pow(.0005,dt);                     // 따라붙는 속도
+    const nx=x+(tx-x)*k, ny=y+(ty-y)*k, vx=(nx-x)/Math.max(dt,.001), vy=(ny-y)/Math.max(dt,.001);
+    x=nx;y=ny;
+    const speed=Math.hypot(vx,vy);
+    if(vx>40)face=1; else if(vx<-40)face=-1;                  // 나는 방향으로 몸을 돌림
+    const tilt=Math.max(-28,Math.min(28,vy*.04))*face;          // 오르내릴 때 기울기
+    ang+=(tilt-ang)*Math.min(1,dt*8);
+    const flying=speed>60;
+    phase+=dt*(flying?14+Math.min(speed,1500)/120:4);           // 빠를수록 날갯짓이 빨라짐
+    const sy=still||wing?1:1-(flying?.42:.12)*Math.abs(Math.sin(phase));
+    if(wing) wing.style.transform=`rotate(${still?0:Math.sin(phase)*(flying?12:5)}deg)`; // 날개만 위아래로 살짝 퍼덕임
+    const bob=still||flying?0:Math.sin(t*2.2)*3;                 // 멈추면 제자리에서 살짝 떠 있음
+    big+=(bigT-big)*Math.min(1,dt*10);
+    bird.style.transform=`translate(${x}px,${y+bob}px) translate(-50%,-80%) rotate(${ang}deg) scale(${face*big},${sy*big})`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
